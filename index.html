@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abandoned Lab — 3-Engine Comparison</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a15;
+      color: #ccc;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    h1 {
+      font-family: monospace;
+      font-size: 32px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .subtitle { color: #666; margin-bottom: 40px; font-size: 15px; }
+
+    /* Engine cards */
+    .engines {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .engine-card {
+      background: #111125;
+      border: 2px solid #2a2a4e;
+      border-radius: 8px;
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .engine-card:hover {
+      transform: translateY(-2px);
+    }
+    .engine-card.vanilla { border-color: #57cc99; }
+    .engine-card.vanilla:hover { border-color: #80ed99; }
+    .engine-card.pixi { border-color: #3a86ff; }
+    .engine-card.pixi:hover { border-color: #6aa6ff; }
+    .engine-card.phaser { border-color: #ff6b6b; }
+    .engine-card.phaser:hover { border-color: #ff9999; }
+
+    .engine-card h2 {
+      font-family: monospace;
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .engine-card.vanilla h2 { color: #57cc99; }
+    .engine-card.pixi h2 { color: #3a86ff; }
+    .engine-card.phaser h2 { color: #ff6b6b; }
+
+    .engine-card .tagline {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 16px;
+    }
+    .engine-card .hero {
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 12px;
+    }
+    .engine-card .hero strong { color: #ddd; }
+    .engine-card .play-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 13px;
+      color: #fff;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+    .vanilla .play-btn { background: #57cc99; }
+    .pixi .play-btn { background: #3a86ff; }
+    .phaser .play-btn { background: #ff6b6b; }
+
+    /* Comparison table */
+    h3 {
+      font-family: monospace;
+      font-size: 18px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px 14px;
+      border: 1px solid #2a2a4e;
+      text-align: left;
+    }
+    th {
+      background: #111125;
+      color: #fff;
+      font-family: monospace;
+      font-weight: normal;
+    }
+    td { background: #0d0d1a; }
+    tr:hover td { background: #111125; }
+
+    /* What to look for */
+    .guide {
+      background: #111125;
+      border: 1px solid #2a2a4e;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .guide h3 { margin-bottom: 12px; }
+    .guide ul { padding-left: 20px; }
+    .guide li {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    .guide code {
+      background: #1a1a2e;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 13px;
+      color: #57cc99;
+    }
+
+    .footer {
+      text-align: center;
+      color: #444;
+      font-size: 12px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 700px) {
+      .engines { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Abandoned Lab</h1>
+    <p class="subtitle">Same point-and-click game, 3 rendering engines. Shared logic, different renderers.</p>
+
+    <div class="engines">
+      <a href="vanilla/" class="engine-card vanilla">
+        <h2>Vanilla Canvas</h2>
+        <p class="tagline">0 KB framework &middot; Raw Canvas2D &middot; Full control</p>
+        <p class="hero"><strong>Hero feature:</strong> Pixel-level panel dissolve via getImageData/putImageData</p>
+        <span class="play-btn">Play Vanilla</span>
+      </a>
+      <a href="pixi/" class="engine-card pixi">
+        <h2>PixiJS</h2>
+        <p class="tagline">GPU-accelerated &middot; Scene graph &middot; Filters</p>
+        <p class="hero"><strong>Hero feature:</strong> DisplacementFilter for melting panel + BlurFilter atmospheric glow</p>
+        <span class="play-btn">Play PixiJS</span>
+      </a>
+      <a href="phaser/" class="engine-card phaser">
+        <h2>Phaser</h2>
+        <p class="tagline">Full framework &middot; Scenes &middot; Tweens &middot; Particles</p>
+        <p class="hero"><strong>Hero feature:</strong> Camera pan navigation + timeline-orchestrated dissolve sequence</p>
+        <span class="play-btn">Play Phaser</span>
+      </a>
+    </div>
+
+    <h3>Comparison Table</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Vanilla Canvas</th>
+          <th>PixiJS</th>
+          <th>Phaser</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bundle size</td>
+          <td>0 KB (native API)</td>
+          <td>~200 KB (CDN)</td>
+          <td>~1 MB (CDN)</td>
+        </tr>
+        <tr>
+          <td>Rendering</td>
+          <td>Canvas2D immediate mode</td>
+          <td>WebGL retained scene graph</td>
+          <td>WebGL via Phaser renderer</td>
+        </tr>
+        <tr>
+          <td>Room navigation</td>
+          <td>Instant redraw</td>
+          <td>Container show/hide</td>
+          <td>Smooth camera pan</td>
+        </tr>
+        <tr>
+          <td>Hit testing</td>
+          <td>Manual AABB checks</td>
+          <td>Built-in eventMode</td>
+          <td>Zone + setInteractive</td>
+        </tr>
+        <tr>
+          <td>Animation</td>
+          <td>Manual particle arrays</td>
+          <td>Filters + manual particles</td>
+          <td>Declarative tweens + emitters</td>
+        </tr>
+        <tr>
+          <td>Panel dissolve</td>
+          <td>getImageData pixel manipulation</td>
+          <td>DisplacementFilter + alpha</td>
+          <td>Timeline + tween chain</td>
+        </tr>
+        <tr>
+          <td>Inventory UI</td>
+          <td>Manual drawing each frame</td>
+          <td>Persistent PIXI objects</td>
+          <td>setScrollFactor(0) fixed UI</td>
+        </tr>
+        <tr>
+          <td>Shared code</td>
+          <td colspan="3" style="text-align:center;">Same <code>shared/</code> module — gameState, puzzleEngine, roomData, constants</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="guide">
+      <h3>What to Look For</h3>
+      <ul>
+        <li><strong>Vanilla:</strong> Open DevTools and watch the <code>getImageData</code>/<code>putImageData</code> dissolve — pixel-by-pixel corrosion that's impossible in a scene graph engine</li>
+        <li><strong>PixiJS:</strong> Notice the <code>DisplacementFilter</code> "melting" effect on the panel — the GPU does the heavy lifting via shader displacement</li>
+        <li><strong>Phaser:</strong> Navigate between rooms — the camera <em>pans</em> smoothly instead of cutting, and the dissolve uses a timeline with orchestrated tweens</li>
+        <li><strong>All three:</strong> The puzzle chain is identical (beaker → pipe → panel → key → door) because <code>shared/puzzleEngine.js</code> drives all game logic</li>
+        <li><strong>Architecture:</strong> Each <code>main.js</code> wires <code>gameEvents</code> to its renderer — the shared module never imports any engine code</li>
+      </ul>
+    </div>
+
+    <h3>How to Play</h3>
+    <div class="guide">
+      <ul>
+        <li>Click left/right screen edges or use arrow keys to navigate between rooms</li>
+        <li>Click objects to interact — pick up items, use them on targets</li>
+        <li>Click inventory slots to select an item, then click a target to use it</li>
+        <li><strong>Puzzle:</strong> Find beaker (Storage) → fill at pipe (Lab) → pour acid on panel (Lab) → grab key → use on door (Corridor)</li>
+      </ul>
+    </div>
+
+    <p class="footer">Serve with <code>npx serve</code> or <code>python3 -m http.server</code> — ES modules require HTTP</p>
+  </div>
+</body>
+</html>

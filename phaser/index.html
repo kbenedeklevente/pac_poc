@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abandoned Lab — Phaser</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a15;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      font-family: monospace;
+      color: #ccc;
+    }
+    h1 {
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #ff6b6b;
+    }
+    .subtitle {
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: #666;
+    }
+    #game-container canvas {
+      border: 2px solid #2a2a4e;
+    }
+    .back-link {
+      margin-top: 16px;
+      color: #ff6b6b;
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Abandoned Lab — Phaser</h1>
+  <p class="subtitle">Full game framework | Camera pan | Timeline dissolve | Particle emitters</p>
+  <div id="game-container"></div>
+  <a class="back-link" href="../">Back to comparison</a>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
